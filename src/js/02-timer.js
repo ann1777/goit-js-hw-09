@@ -11,6 +11,28 @@ const hoursEl = document.querySelector('[data-hours]');
 const minutesEl = document.querySelector('[data-minutes]');
 const secondsEl = document.querySelector('[data-seconds]');
 
+const options = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    if (selectedDates[0] < Date.now()) {
+      Notify.failure("Please choose a date in the future")
+      startBtn.setAttribute('disabled', true);
+      dateInput.style.borderColor = "red";
+    } else {
+      chosenDate = selectedDates[0];
+      console.log(selectedDates[0]);
+      startBtn.removeAttribute('disabled');
+      startBtn.addEventListener('click', timerOn);
+      dateInput.style.borderColor = "green";
+    }
+  },
+};
+
+flatpickr(calendar, options);
+
 class Timer {
   constructor({onReboot, dateStart = 0, onStop = null}) {
     this.dateStart = datestart;
