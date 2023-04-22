@@ -25,7 +25,7 @@ const options = {
       chosenDate = selectedDates[0];
       console.log(selectedDates[0]);
       startBtn.removeAttribute('disabled');
-      startBtn.addEventListener('click', startTimer);
+      startBtn.addEventListener('click', Timer.timerOn);
       dateInput.style.borderColor = "green";
     }
   },
@@ -46,7 +46,7 @@ class Timer {
     this.onReboot(this.convertMs(remainder));
   }
 
-  startTimer() {
+  timerOn() {
     let dateCurrent = Date.now();
 
     this.intervalId = setInterval(() => {
