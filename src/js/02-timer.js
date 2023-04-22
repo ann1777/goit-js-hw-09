@@ -25,7 +25,7 @@ const options = {
       chosenDate = selectedDates[0];
       console.log(selectedDates[0]);
       startBtn.removeAttribute('disabled');
-      startBtn.addEventListener('click', timerOn);
+      startBtn.addEventListener('click', startTimer);
       dateInput.style.borderColor = "green";
     }
   },
