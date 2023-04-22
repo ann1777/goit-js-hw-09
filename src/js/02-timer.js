@@ -2,6 +2,7 @@
 import flatpickr from "flatpickr";
 
 import "flatpickr/dist/flatpickr.min.css";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const calendar = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]');
@@ -10,6 +11,7 @@ const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
 const minutesEl = document.querySelector('[data-minutes]');
 const secondsEl = document.querySelector('[data-seconds]');
+startBtn.disabled = true;
 
 const options = {
   enableTime: true,
@@ -20,7 +22,7 @@ const options = {
     if (selectedDates[0] < Date.now()) {
       Notify.failure("Please choose a date in the future")
       startBtn.setAttribute('disabled', true);
-      dateInput.style.borderColor = "red";
+      dateInput.style.borderColor pi hass= "red";
     } else {
       chosenDate = selectedDates[0];
       console.log(selectedDates[0]);
@@ -34,8 +36,8 @@ const options = {
 flatpickr(calendar, options);
 
 class Timer {
-  constructor({onReboot, dateStart = 0, onStop = null}) {
-    this.dateStart = datestart;
+  constructor({onReboot, dataStart = 0, onStop = null}) {
+    this.dataStart = dataStart;
     this.intervalId = null;
     this.onReboot = onReboot;
     this.onStop = onStop;
@@ -43,7 +45,14 @@ class Timer {
   }
 
   update(remainder = 0) {
-    this.onReboot(this.convertMs(remainder));
+    this.onReboot.addEventListener('click', () => {
+      timer.stop(timer);
+
+      inputDate.disabled = false;
+      btnToggle(startBtn, stopBtn);
+
+      startBtn.disabled = false;
+    });eboot(this.convertMs(remainder));
   }
 
   timerOn() {
@@ -74,7 +83,7 @@ class Timer {
     clearInterval(this.intervalId);
     this.update();
     if(this.onStop) {
-      this.onStop();
+      onStop();
     }
   }
 
@@ -83,8 +92,62 @@ class Timer {
     const minute = second * 60;
     const hour = minute * 60;
     const day = hour * 24;
+
+    const days = this.addLeadingZero(Math.floor(ms / day));
+    const hours = this.addLeadingZero(Math.floor((ms % day) / hour));
+    const minutes = this.addLeadingZero(
+      Math.floor(((ms % day) % hour) / minute)
+    );
+    const seconds = this.addLeadingZero(
+      Math.floor((((ms % day) % hour) % minute) / second)
+    );
+
+    return updateTimerData;
+  }
+
+  updateTimerData ({ days, hours, minutes, seconds }) {
+    daysEl.textContent = days;
+    hoursEl.textContent = hours;
+    minutesEl.textContent = minutes;
+    secondsEl.textContent = seconds;
+  }  
+
+  addLeadingZero(value) {
+    return String(value).padStart(2, '0');
   }
 }
+
+
+flatpickr('#datetime-picker', {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    if (flatpickr.parseDate(selectedDates[0]) < Date.now()) {
+      Notify.failure('Please choose a date in the future');
+      startBtn.disabled = true;
+      return;
+    }
+    startBtn.disabled = false;
+
+  const timer = new Timer({
+    onReboot: updateTimerData(),
+    dateStart: flatpickr.parseDate(selectedDates[0]),
+    onStop,
+  });
+  startBtn.addEventListener('click', () => {
+    timer.startCountdown(timer);
+
+    inputDate.disabled = true;
+    btnToggle(startBtn, stopBtn);
+
+    startBtn.disabled = true;
+  });
+}
+});
+
+
 // startBtn.disabled = true;
 // let chosenDate = null;
 // let timerId = null;
