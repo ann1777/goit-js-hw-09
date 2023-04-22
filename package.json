@@ -18,6 +18,7 @@
     "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
   "dependencies": {
+    "caniuse-lite": "^1.0.30001481",
     "flatpickr": "^4.6.13",
     "modern-normalize": "^1.1.0"
   },
@@ -28,5 +29,5 @@
     "posthtml-include": "^1.7.4"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "main": "index.html"
+  "main": "02-timer.js"
 }
