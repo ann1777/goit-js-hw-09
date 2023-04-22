@@ -1,10 +1,10 @@
 {
   "name": "parcel-project-template",
   "version": "2.0.0",
-  "description": "",
+  "description": "# Parcel template Проект зібраний за допомогою Parcel. Для знайомства і налаштування додаткових можливостей [перейди за посиланям](https://parceljs.org/).",
   "homepage": "https://ann1777.github.io/goit-js-hw-09",
   "scripts": {
-    "start": "parcel src/*.html",
+    "start": "parcel src/*.html --dist-dir ./dist --public-url / --port 1171 --hmr-port 1172",
     "build": "parcel build src/*.html --public-url /goit-js-hw-09/"
   },
   "repository": {
@@ -27,5 +27,6 @@
     "parcel-reporter-clean-dist": "^1.0.4",
     "posthtml-include": "^1.7.4"
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead"
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "main": "index.js"
 }
