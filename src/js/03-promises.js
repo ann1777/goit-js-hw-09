@@ -7,22 +7,27 @@ const refs = {
   formEl: document.querySelector('.form'),
 };
 
-refs.formEl.addEventListener('submit', onCreatePromisesClick);
+const form = document.querySelector('form.form');
+refs.addEventListener('click', onCreatePromisesClick);
 
 function onCreatePromisesClick(event) {
   event.preventDefault();
 
-  const delay = Number.parseInt(refs.firstDelayEl.value);
-  const step = Number.parseInt(refs.delayStepEl.value);
+  const { delay, step, amount } = event.currentTarget.elements;
+  let inputDelay = Number(delay.value);
+  let inputStep = Number(step.value);
+  let inputAmount = Number(amount.value);
 
-  for (let i = 0; i < refs.amountEl.value; i++) {
-    createPromise(i + 1, delay + step * i)
+  for (let i = 1; i <= inputAmount; i += 1) {
+    inputDelay += inputStep;
+    createPromise(i, inputDelay)
       .then(({ position, delay }) => {
-        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, options);
       })
       .catch(({ position, delay }) => {
-        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, options);
       });
+    event.currentTarget.reset();
   }
 }
 

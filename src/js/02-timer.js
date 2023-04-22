@@ -22,7 +22,7 @@ const options = {
     if (selectedDates[0] < Date.now()) {
       Notify.failure("Please choose a date in the future")
       startBtn.setAttribute('disabled', true);
-      dateInput.style.borderColor pi hass= "red";
+      dateInput.style.borderColor = "red";
     } else {
       chosenDate = selectedDates[0];
       console.log(selectedDates[0]);
