@@ -71,12 +71,14 @@ const options = {
         
         }, TIMER_DELAY);
       },
+
       function stop() {
         clearInterval(intervalId);
         this.intervalId = null;
         startBtn.disabled = true;
         calendar.disabled = false;
       },
+
       function updClockInterface({ days, hours, minutes, seconds }) {
         daysEl.textContent = days;
         hoursEl.textContent = hours;
@@ -101,8 +103,10 @@ const options = {
 
         return { days, hours, minutes, seconds };
       },
-      
+
       function addLeadingZero(value) {
         return String(value).padStart(2, '0');
-      }
+      });  
+  }
+}
   //Функція convertMs() повертає об'єкт з розрахованим часом, що залишився до кінцевої дати. Зверни увагу, що вона не форматує результат. Тобто, якщо залишилося 4 хвилини або будь-якої іншої складової часу, то функція поверне 4, а не 04. В інтерфейсі таймера необхідно додавати 0, якщо в числі менше двох символів. Напиши функцію addLeadingZero(value), яка використовує метод padStart() і перед рендерингом інтефрейсу форматує значення.

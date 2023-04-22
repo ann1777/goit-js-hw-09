@@ -4,7 +4,7 @@
   "description": "# Parcel template Проект зібраний за допомогою Parcel. Для знайомства і налаштування додаткових можливостей [перейди за посиланям](https://parceljs.org/).",
   "homepage": "https://ann1777.github.io/goit-js-hw-09",
   "scripts": {
-    "start": "parcel src/*.html --dist-dir ./dist --public-url / --port 1171 --hmr-port 1172",
+    "start": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /goit-js-hw-09/"
   },
   "repository": {
