@@ -46,13 +46,14 @@ class Timer {
 
   update(remainder = 0) {
     this.onReboot.addEventListener('click', () => {
-      timer.stop(timer);
+      this.timer.stop;
 
       inputDate.disabled = false;
       btnToggle(startBtn, stopBtn);
 
       startBtn.disabled = false;
-    });eboot(this.convertMs(remainder));
+    })
+    onReboot(this.convertMs(remainder));
   }
 
   timerOn() {
@@ -61,14 +62,14 @@ class Timer {
     this.intervalId = setInterval(() => {
       dateCurrent = date.now();
 
-      let reminder = this.dateStart - dateCurrent;
+      let remainder = this.dateStart - dateCurrent;
 
-      if(reminder <= 0) {
+      if(remainder <= 0) {
         this.stop();
         return;
       }
 
-      this.update(reminder);
+      this.update(remainder);
     }, 1000);
   }
   start() {
@@ -105,7 +106,7 @@ class Timer {
     return updateTimerData;
   }
 
-  updateTimerData ({ days, hours, minutes, seconds }) {
+  onReboot ({ days, hours, minutes, seconds }) {
     daysEl.textContent = days;
     hoursEl.textContent = hours;
     minutesEl.textContent = minutes;
@@ -132,12 +133,12 @@ flatpickr('#datetime-picker', {
     startBtn.disabled = false;
 
   const timer = new Timer({
-    onReboot: updateTimerData(),
+    onReboot: Timer.updateTimerData,
     dateStart: flatpickr.parseDate(selectedDates[0]),
-    onStop,
+    onStop: Timer.stop,
   });
   startBtn.addEventListener('click', () => {
-    timer.startCountdown(timer);
+    timer.start();
 
     inputDate.disabled = true;
     btnToggle(startBtn, stopBtn);
@@ -245,4 +246,4 @@ flatpickr('#datetime-picker', {
 //       });  
 //   }
 // }
-//   //Функція convertMs() повертає об'єкт з розрахованим часом, що залишився до кінцевої дати. Зверни увагу, що вона не форматує результат. Тобто, якщо залишилося 4 хвилини або будь-якої іншої складової часу, то функція поверне 4, а не 04. В інтерфейсі таймера необхідно додавати 0, якщо в числі менше двох символів. Напиши функцію addLeadingZero(value), яка використовує метод padStart() і перед рендерингом інтефрейсу форматує значення.
+//Функція convertMs() повертає об'єкт з розрахованим часом, що залишився до кінцевої дати. Зверни увагу, що вона не форматує результат. Тобто, якщо залишилося 4 хвилини або будь-якої іншої складової часу, то функція поверне 4, а не 04. В інтерфейсі таймера необхідно додавати 0, якщо в числі менше двох символів. Напиши функцію addLeadingZero(value), яка використовує метод padStart() і перед рендерингом інтефрейсу форматує значення.
