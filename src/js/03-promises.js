@@ -6,15 +6,17 @@ const formEl = document.querySelector('.form');
 formEl.addEventListener('submit', onCreatePromisesClick);
 
 function createPromise(position, stepDelay) {
-  const shouldResolve = Math.random() > 0.3;
+  const shouldResolve = Math.random() > 0.5;
   return new Promise((resolve, reject) => {
+    setTimeout(() => {
       if (shouldResolve) {
         return resolve({ position, stepDelay });
       } else {
         return reject({ position, stepDelay });
       }
-  })
-};
+    }, firstDelay)
+});
+}
 
 function onCreatePromisesClick(e) {
   e.preventDefault();
@@ -25,24 +27,25 @@ function onCreatePromisesClick(e) {
     return Notiflix.Notify.warning("Delay step and amount values must be positive numbers and the amount value must be more than zero");
 } 
 
-  const inputDelay = Number(formEl.delay.value);
-  const inputStep = Number(formEl.step.value);
+  const firstDelay = Number(formEl.delay.value);
+  const delayStep = Number(formEl.step.value);
   const inputAmount = Number(formEl.amount.value);
+ /*  console.log(firstDelay);
+  console.log(delayStep);
+  console.log(inputAmount); */
 
-  for (let position = 1; position <= inputAmount; position += 1) {
-    let stepDelay = inputDelay + inputStep;
+  for (let position = 0; position < inputAmount; position += 1) {
+    let stepDelay = firstDelay + delayStep * position;
+    console.log(stepDelay);
     
-    createPromise(position, inputDelay, stepDelay)
+    createPromise(position, stepDelay)
       .then(({ position, stepDelay }) => {
-        setTimeout(() => {
+
           Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${stepDelay}ms`);
-      }, stepDelay);
     })
       .catch(({ position, stepDelay }) => {
             
-        setTimeout(() => {
           Notiflix.Notify.warning(`❌ Rejected promise ${position} in ${stepDelay}ms`);
-        }, stepDelay);
       })
   }
-};
+}
