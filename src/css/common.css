@@ -12,6 +12,11 @@ body {
   line-height: 1.5;
 }
 
+ul {
+  list-style: none;
+}
+
+
 img {
   display: block;
   max-width: 100%;
