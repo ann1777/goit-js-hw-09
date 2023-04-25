@@ -15,6 +15,8 @@ Notiflix.Notify.info(
     'Please, choose a date and click on start',
   );
 
+console.log("Hello!");
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -72,6 +74,15 @@ const timer = {
         this.addLeadingZero(minutes);
       this.rootSelector.querySelector('[data-seconds]').textContent =
         this.addLeadingZero(seconds);
+
+      this.rootSelector.querySelector('[data-days-lab]').textContent =
+        this.declensionNum(days, ['Days', 'Day']);
+      this.rootSelector.querySelector('[data-hours-lab]').textContent =
+        this.declensionNum(hours, ['Hours', 'Hour']); 
+      this.rootSelector.querySelector('[data-minutes-lab]').textContent =
+        this.declensionNum(minutes, ['Minutes', 'Minute']);
+      this.rootSelector.querySelector('[data-seconds-lab]').textContent =
+        this.declensionNum(seconds, ['Seconds', 'Second']); 
     }, TIMER_DELAY);
     // startBtn.disabled = 'disabled';
   },
@@ -91,6 +102,13 @@ const timer = {
   },
   
   addLeadingZero(value) {
+    console.log(value);
     return String(value).padStart(2, '0');
+  },
+
+  declensionNum(num, words) {
+    return words[
+      (Number(num) === 1) ? 1 : 0
+    ];
   },
 };
