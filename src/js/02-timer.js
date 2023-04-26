@@ -32,7 +32,7 @@ const options = {
     } else {
       console.log(selectedDate);
       startBtn.removeAttribute('disabled');
-      Notiflix.Notify.success('Goog! You chose a date in the future');
+      Notiflix.Notify.success('Goog! You chose a date in the future. Click on Start button');
       startBtn.addEventListener('click', timer.timerOn);
       calendar.style.borderColor = "green";
       startBtn.disabled = false;
