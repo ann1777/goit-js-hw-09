@@ -42,6 +42,7 @@ const options = {
       };
       startBtn.addEventListener('click', setTimer);
     }
+    return;
   },
 };
 
@@ -55,14 +56,14 @@ const timer = {
       startBtn.disabled = true;
       calendar.disabled = true;
       currentDate = Date.now();
-      const deltaTime = selectedDate - currentDate;
+      let deltaTime = selectedDate - currentDate;
 
-      if((deltaTime) < 0) {
+      if((deltaTime) <= 0) {
         clearInterval(intervalId);
         this.intervalId = null;
         startBtn.disabled = true;
         calendar.disabled = false;
-        Notiflix.Notify.failure("Please choose a date in the future")
+        Notiflix.Notify.failure("Time went out!")
         return;
       }
       const { days, hours, minutes, seconds } = this.convertMs(deltaTime);
