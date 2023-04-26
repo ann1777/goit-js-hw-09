@@ -15,8 +15,6 @@ Notiflix.Notify.info(
     'Please, choose a date and click on start',
   );
 
-console.log("Hello!");
-
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -66,7 +64,8 @@ const timer = {
         Notiflix.Notify.failure("Time went out!")
         return;
       }
-      const { days, hours, minutes, seconds } = this.convertMs(deltaTime);
+      
+      let { days, hours, minutes, seconds } = this.convertMs(deltaTime);
       this.rootSelector.querySelector('[data-days]').textContent =
         this.addLeadingZero(days);
       this.rootSelector.querySelector('[data-hours]').textContent =
@@ -85,7 +84,6 @@ const timer = {
       this.rootSelector.querySelector('[data-seconds-lab]').textContent =
         this.declensionNum(seconds, ['Seconds', 'Second']); 
     }, TIMER_DELAY);
-    // startBtn.disabled = 'disabled';
   },
 
   convertMs(ms) {
