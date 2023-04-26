@@ -30,6 +30,8 @@ function onCreatePromisesClick(e) {
   const firstDelay = Number(formEl.delay.value);
   const delayStep = Number(formEl.step.value);
   const inputAmount = Number(formEl.amount.value);
+  let countSuccess = 0;
+  let countFailure = 0;
 
   for (let position = 0; position < inputAmount; position += 1) {
     let stepDelay = firstDelay + delayStep * position;
@@ -38,9 +40,14 @@ function onCreatePromisesClick(e) {
     createPromise(position+1, stepDelay)
       .then(({ position, stepDelay }) => {
           Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${stepDelay}ms`);
+          countSuccess = countSuccess + 1;
+          console.log(`Succeded: ${countSuccess} promises`);
     })
       .catch(({ position, stepDelay }) => {    
           Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${stepDelay}ms`);
-      })
+          countFailure = countFailure + 1;
+          console.log(`Failed: ${countFailure} promises`);
+    })
   }
 }
+
