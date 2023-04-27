@@ -1,5 +1,4 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import Notiflix from "notiflix";
+import {Notify} from 'notiflix';
 
 const formEl = document.querySelector('.form');
 
@@ -24,7 +23,8 @@ function onCreatePromisesClick(e) {
   const formEl = e.target.elements;
 
   if (formEl.delay.value < 0 || formEl.amount.value <= 0 || formEl.step.value < 0) {
-    return Notiflix.Notify.warning("Delay step and amount values must be positive numbers and the amount value must be more than zero");
+    Notify.warning("Delay step and amount values must be positive numbers and the amount value must be more than zero");
+    return;
 } 
  
   const firstDelay = Number(formEl.delay.value);
@@ -39,15 +39,18 @@ function onCreatePromisesClick(e) {
     
     createPromise(position+1, stepDelay)
       .then(({ position, stepDelay }) => {
-          Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${stepDelay}ms`);
+          Notify.success(`✅ Fulfilled promise ${position} in ${stepDelay}ms`);
           countSuccess = countSuccess + 1;
           console.log(`Succeded: ${countSuccess} promises`);
     })
       .catch(({ position, stepDelay }) => {    
-          Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${stepDelay}ms`);
+          Notify.failure(`❌ Rejected promise ${position} in ${stepDelay}ms`);
           countFailure = countFailure + 1;
           console.log(`Failed: ${countFailure} promises`);
     })
-  }
+    if(position === inputAmount - 1) setTimeout(() => {
+      Notify.success(`TOTAL: ✅ Succided ${countSuccess} promises and ❌ Rejected ${countFailure} promise`);
+    }, stepDelay+5000)
+  } 
 }
 
