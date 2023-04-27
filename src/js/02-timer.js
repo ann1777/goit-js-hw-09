@@ -1,7 +1,7 @@
 
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import Notiflix from 'notiflix';
+import {Notify} from 'notiflix';
 
 const calendar = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]');
@@ -11,7 +11,7 @@ let intervalId = null;
 let selectedDate = null;
 let currentDate = null;
 
-Notiflix.Notify.info(
+Notify.info(
     'Please, choose a date and click on start',
   );
 
@@ -24,15 +24,23 @@ const options = {
     selectedDate = selectedDates[0]
     const now = new Date();
     if (selectedDate < now) {
-      Notiflix.Notify.failure("Please choose a date in the future")
+      Notify.failure("Please choose a date in the future")
       startBtn.setAttribute('disabled', true);
-      calendar.style.borderColor = "red";
+      // calendar.style.borderColor = "red";
+      if(calendar.classList.contains('form-success')) {
+        calendar.classList.remove('form-success');
+      } 
+        calendar.classList.add('form-failure');
     } else {
       console.log(selectedDate);
       startBtn.removeAttribute('disabled');
-      Notiflix.Notify.success('Goog! You chose a date in the future. Click on Start button');
+      Notify.success('Goog! You chose a date in the future. Click on Start button');
       startBtn.addEventListener('click', timer.timerOn);
-      calendar.style.borderColor = "green";
+      // calendar.style.borderColor = "green";
+      if(calendar.classList.contains('form-failure')) {
+        calendar.classList.remove('form-failure');
+      }
+      calendar.classList.add('form-success');}
       startBtn.disabled = false;
       const setTimer = () => {
         selectedDate = selectedDates[0].getTime();
@@ -40,8 +48,7 @@ const options = {
       };
       startBtn.addEventListener('click', setTimer);
     }
-    return;
-  },
+    // return;
 };
 
 flatpickr(calendar, options);
@@ -61,7 +68,7 @@ const timer = {
         this.intervalId = null;
         startBtn.disabled = true;
         calendar.disabled = false;
-        Notiflix.Notify.failure("Time went out!")
+        Notify.failure("Time went out!")
         return;
       }
       

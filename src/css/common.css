@@ -16,7 +16,6 @@ ul {
   list-style: none;
 }
 
-
 img {
   display: block;
   max-width: 100%;
@@ -30,6 +29,14 @@ img {
 
 button[data-stop] {
   margin-right: 20px;
+}
+
+input.form-success#datetime-picker {
+  border: 2px solid rgba(10, 180, 10, 0.87);
+}
+
+input.form-failure#datetime-picker {
+  border: 2px solid rgba(240, 10, 67, 0.87);
 }
 
 button[data-start] {
@@ -103,7 +110,7 @@ input[type='number'] {
   border: 0;
   outline: 0;
   border-radius: 5px;
-
+  
   background-color: transparent;
   color: #4208df;
   box-shadow: 2px 1px 0px #c2a8cd, -1px -1px 0px #ffffff;
